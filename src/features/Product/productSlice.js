@@ -35,7 +35,6 @@ const productSlice = createSlice({
       })
       .addCase(getAllProduct.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = action.error.message;
         state.product = [];
       })
       .addCase(getAllProduct.fulfilled, (state, action) => {
