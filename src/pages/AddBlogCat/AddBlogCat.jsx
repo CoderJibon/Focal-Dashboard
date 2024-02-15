@@ -42,7 +42,9 @@ const AddBlogCat = () => {
       toastify("success", message);
       dispatch(setMessageEmpty());
       setLoad(false);
-      navigate(`/blog-category-list/${singleBlogCat?.slug}`);
+      if (singleBlogCat) {
+        navigate(`/blog-category-list/${singleBlogCat?.slug}`);
+      }
       formik.resetForm();
     }
   }, [isError, message]);

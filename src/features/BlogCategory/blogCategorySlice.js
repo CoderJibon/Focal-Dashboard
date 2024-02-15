@@ -55,7 +55,7 @@ const blogCategorySlice = createSlice({
         state.isLoading = false;
         state.isError = null;
         state.message = action.payload.message;
-        state.singleBlogCat = action.payload.BlogCat;
+        state.singleBlogCat = action.payload.blogCategory;
       })
       //get single BlogCat
       .addCase(getSingleBlogCat.pending, (state, action) => {
@@ -86,7 +86,7 @@ const blogCategorySlice = createSlice({
         state.isLoading = false;
         state.isError = null;
         state.message = action.payload.message;
-        state.singleBlogCat = action.payload.BlogCat;
+        state.singleBlogCat = action.payload.blogCategory;
       })
       //Delate a single BlogCat
       .addCase(delateSingleBlogCat.pending, (state, action) => {
@@ -100,6 +100,7 @@ const blogCategorySlice = createSlice({
         state.isLoading = false;
         state.isError = null;
         state.message = action.payload.message;
+        console.log(action.payload);
         state.blogCategory = state.blogCategory.filter(
           (item) => item._id !== action.payload.blogCategory?._id
         );
