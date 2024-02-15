@@ -1,0 +1,108 @@
+import React, { useEffect } from "react";
+import { Table } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { BiEdit } from "react-icons/bi";
+import { AiFillDelete } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import {
+  delateSingleBrand,
+  getAllBrand,
+} from "../../features/Brand/brandApiSlice.js";
+import Swal from "sweetalert2";
+import { setMessageEmpty } from "../../features/Brand/brandSlice.js";
+import toastify from "../../utils/toastify.jsx";
+const columns = [
+  {
+    title: "SNo",
+    dataIndex: "key",
+  },
+  {
+    title: "Name",
+    dataIndex: "name",
+    sorter: (a, b) => a.name.length - b.name.length,
+  },
+  {
+    title: "Photo",
+    dataIndex: "photo",
+  },
+  {
+    title: "Action",
+    dataIndex: "action",
+  },
+];
+
+const BrandList = () => {
+  const dispatch = useDispatch();
+  const { brand, isError, message } = useSelector((state) => state.brand);
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(delateSingleBrand(id));
+      }
+    });
+  };
+  // brand data set on table
+  let brandData = [];
+  brand?.map((data, index) => {
+    brandData.push({
+      key: index + 1,
+      name: data?.name,
+      photo: (
+        <>
+          {data?.photo && (
+            <img className="tablePhoto" src={data?.photo?.url} alt="" />
+          )}
+        </>
+      ),
+
+      action: (
+        <>
+          <Link to={`/list-brand/${data._id}`} className=" fs-3 text-danger">
+            <BiEdit />
+          </Link>
+          <Link
+            onClick={() => handleDelete(data._id)}
+            className="ms-3 fs-3 text-danger"
+            to="#"
+          >
+            <AiFillDelete />
+          </Link>
+        </>
+      ),
+    });
+  });
+
+  useEffect(() => {
+    dispatch(getAllBrand());
+  }, [dispatch]);
+
+  //message handling
+  useEffect(() => {
+    if (isError) {
+      toastify("error", isError);
+      dispatch(setMessageEmpty());
+    }
+    if (message) {
+      toastify("success", message);
+      dispatch(setMessageEmpty());
+    }
+  }, [isError, message, dispatch]);
+  return (
+    <div>
+      <h3 className="mb-4 title">Brand list</h3>
+      <div>
+        <Table columns={columns} dataSource={brandData} />
+      </div>
+    </div>
+  );
+};
+
+export default BrandList;

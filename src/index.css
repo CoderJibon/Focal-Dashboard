@@ -1,0 +1,106 @@
+:root {
+  --font-family: "Roboto", sans-serif;
+  --background-242424: #242424;
+  --background-ffd333: #ffd333;
+  --color-131921: #131921;
+  --color-yellow: #f3ff34;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+}
+* {
+  padding: 0;
+  margin: 0;
+}
+a {
+  display: inline-block;
+  text-decoration: inherit;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  width: 100%;
+  margin: 15px 0;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--background-ffd333);
+  cursor: pointer;
+  color: var(--color-131921);
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+.demo-logo-vertical {
+  text-align: center;
+  background: var(--color-yellow);
+  color: var(--color-131921);
+  font-size: 20px;
+  padding: 10px 3px;
+  font-weight: bolder;
+}
+
+/* login area start */
+
+.ant-layout {
+  min-height: 100vh;
+}
+.login-warp {
+  background-color: var(--background-ffd333);
+  height: 100vh;
+}
+/* login area end */
+.ant-layout-sider {
+  flex: 0 0 250px !important;
+  max-width: 250px !important;
+  min-width: 250px !important;
+  width: 250px !important;
+}
+.ant-layout-sider-collapsed {
+  flex: 0 0 80px !important;
+  max-width: 80px !important;
+  min-width: 80px !important;
+  width: 80px !important;
+}
+main {
+  height: 85vh;
+  overflow-y: scroll;
+  background-color: transparent !important;
+}
+main::-webkit-scrollbar {
+  width: 0px;
+}
+.error {
+  color: red;
+  font-size: 12px;
+}
+.ant-layout-header h5 {
+  line-height: 20px;
+  font-size: 14px;
+}
+.ant-layout-header p {
+  line-height: 20px;
+  font-size: 13px;
+}
+.ant-layout-header div .badge {
+  top: 16px;
+  right: -6px;
+}
