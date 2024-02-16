@@ -11,6 +11,7 @@ import {
 import { setMessageEmpty } from "../../features/Enquiry/enquirySlice.js";
 import toastify from "../../utils/toastify.jsx";
 import Swal from "sweetalert2";
+import { Modal } from "antd";
 const columns = [
   {
     title: "SNo",
@@ -37,12 +38,14 @@ const columns = [
     dataIndex: "action",
   },
 ];
-import { Modal } from "antd";
+
 const Enquiries = () => {
   const dispatch = useDispatch();
   const { enquiry, isError, message } = useSelector((state) => state.enquiry);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
+  const [modalData, setModalData] = useState(null);
+  const showModal = (data) => {
+    setModalData(data);
     setIsModalOpen(true);
   };
   const handleCancel = () => {
@@ -94,21 +97,13 @@ const Enquiries = () => {
       ),
       action: (
         <>
-          <Link to="#" onClick={showModal} className=" fs-3 text-danger">
+          <Link
+            to={"#"}
+            onClick={() => showModal(data)}
+            className=" fs-3 text-danger"
+          >
             <AiOutlineEye />
           </Link>
-          <Modal
-            title="Enquire"
-            footer={null}
-            open={isModalOpen}
-            onCancel={handleCancel}
-          >
-            <p>name : {data.name} </p>
-            <p>email : {data.email} </p>
-            <p>mobile : {data.mobile} </p>
-            <p>status : {data.status}</p>
-            <p>comment : {data.comment} </p>
-          </Modal>
           <Link
             className="ms-3 fs-3 text-danger"
             onClick={() => handleTagDelete(data._id)}
@@ -163,6 +158,18 @@ const Enquiries = () => {
       <h3 className="mb-4 title">Enquiries list</h3>
       <div>
         <Table columns={columns} dataSource={enquiryData} />
+        <Modal
+          title="Enquire"
+          footer={null}
+          open={isModalOpen}
+          onCancel={handleCancel}
+        >
+          <p>name : {modalData?.name} </p>
+          <p>email : {modalData?.email} </p>
+          <p>mobile : {modalData?.mobile} </p>
+          <p>status : {modalData?.status}</p>
+          <p>comment : {modalData?.comment} </p>
+        </Modal>
       </div>
     </div>
   );

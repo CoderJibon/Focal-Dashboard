@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CustomInput from "../../components/CustomInput/CustomInput.jsx";
-import { Image, InputNumber, Select } from "antd";
+import { Badge, Image, InputNumber, Select } from "antd";
 import { FileUploader } from "react-drag-drop-files";
 import ReactQuill from "react-quill";
 import { useDispatch, useSelector } from "react-redux";
@@ -60,7 +60,14 @@ const AddProduct = () => {
   //color show the selected option
   let colorSelected = [];
   color.map((data, index) => {
-    colorSelected.push({ value: data._id, label: data.name });
+    colorSelected.push({
+      value: data._id,
+      label: (
+        <>
+          <Badge text={data?.name} color={`${data?.colorCode}`} />
+        </>
+      ),
+    });
   });
   //tag show the selected option
   let tagSelected = [];

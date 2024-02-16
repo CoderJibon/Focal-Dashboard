@@ -46,7 +46,10 @@ const Customers = () => {
     (state) => state.customers
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
+  const [modalData, setModalData] = useState(null);
+
+  const showModal = (data) => {
+    setModalData(data);
     setIsModalOpen(true);
   };
   const handleCancel = () => {
@@ -73,45 +76,14 @@ const Customers = () => {
       mobile: data.mobile ? data.mobile : "null",
       action: (
         <>
-          <Link to="#" onClick={showModal} className=" fs-3 text-danger">
+          <Link
+            to="#"
+            onClick={() => showModal(data)}
+            className=" fs-3 text-danger"
+          >
             <AiOutlineEye />
           </Link>
-          <Modal
-            title="Customer"
-            footer={null}
-            open={isModalOpen}
-            onCancel={handleCancel}
-          >
-            <row>
-              <div>
-                <Image
-                  width={"100%"}
-                  src={
-                    data.photo
-                      ? data.photo?.url
-                      : `https://i.ibb.co/Lvd1G5h/user.jpg`
-                  }
-                />
-              </div>
-              <div>
-                <br />
-                <p>
-                  First Name : {data?.firstName?.toUpperCase()}{" "}
-                  {data?.lastName?.toUpperCase()}
-                </p>
-                <p>
-                  Last Name : {data?.firstName?.toUpperCase()}{" "}
-                  {data?.lastName?.toUpperCase()}
-                </p>
-                <p>Email : {data.email} </p>
-                <p>Mobile : {data.mobile} </p>
-                <p>Gender : {data.gender} </p>
-                <p>Photo : {data.photo} </p>
-                <p>Role : {data.role} </p>
-                <p>Verify : {data.verify} </p>
-              </div>
-            </row>
-          </Modal>
+
           <Link
             className="ms-3 fs-3 text-danger"
             onClick={() => handleDelete(data._id)}
@@ -159,6 +131,39 @@ const Customers = () => {
       <h3 className="mb-4 title">Customers</h3>
       <div>
         <Table columns={columns} dataSource={customerData} />
+        <Modal
+          title="Customer"
+          footer={null}
+          open={isModalOpen}
+          onCancel={handleCancel}
+        >
+          <div>
+            <div>
+              {modalData?.photo ? (
+                <>
+                  <Image width={"100%"} src={modalData?.photo?.url} />
+                </>
+              ) : (
+                <>
+                  <Image
+                    width={"100%"}
+                    src={`https://i.ibb.co/Lvd1G5h/user.jpg`}
+                  />
+                </>
+              )}
+            </div>
+            <div>
+              <br />
+              <p>First Name : {modalData?.firstName?.toUpperCase()}</p>
+              <p>Last Name :{modalData?.lastName?.toUpperCase()}</p>
+              <p>Email : {modalData?.email} </p>
+              <p>Mobile : {modalData?.mobile} </p>
+              <p>Gender : {modalData?.gender} </p>
+              <p>Role : {modalData?.role} </p>
+              <p>Verify : {modalData?.verify ? "verified" : "unverified"} </p>
+            </div>
+          </div>
+        </Modal>
       </div>
     </div>
   );

@@ -58,7 +58,7 @@ const ColorList = () => {
       color: (
         <>
           {data?.colorCode && (
-            <Badge count={data?.name} showZero color={`${data?.colorCode}`} />
+            <Badge text={data?.name} showZero color={`${data?.colorCode}`} />
           )}
         </>
       ),
